@@ -63,9 +63,12 @@ def scrape():
 #tell flask to run
 
 if __name__ =="__main__":
-    app.run()
+    app.run(port="8001", debug=True)
 
 
+
+
+## code without notes
 # from flask import Flask, render_template, redirect, url_for
 # from flask_pymongo import PyMongo
 # import scraping
@@ -89,4 +92,4 @@ if __name__ =="__main__":
 #    return redirect('/', code=302)
 
 # if __name__ == "__main__":
-#    app.run()
+#    app.run(port="8001", debug=True)

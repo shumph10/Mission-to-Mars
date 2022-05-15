@@ -1,9 +1,9 @@
 # Import Splinter and BeautifulSoup
-from lib2to3.pytree import Base
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
+import datetime as dt
 
 #add a function that will:
     #initialize the browser
@@ -12,10 +12,10 @@ import pandas as pd
 def scrape_all():
 #Set up Splinter - initiate headless driver for deployment
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=True)
+    browser = Browser('chrome', **executable_path, headless=False)
         #change headless to true so you dont have pop ups of the window click through
             #can if you want to but dont need to
-    news_title, news_paragraph = mars_new(browser)
+    news_title, news_paragraph = mars_news(browser)
         #set our news title and paragraph variables
             #tells python that were using our mars_new function to pull this data
         #not sure why its news_paragraph not news_p
@@ -108,10 +108,16 @@ def featured_image(browser):
 
 #create a funct to get the mars data table
 def mars_facts():
+        #not using the browser to parse html so dont have to add it as an arg
     #add a try/except to handle errors
     try: 
         #use read_html to scrape the facts table into a df
         df = pd.read_html('https://galaxyfacts-mars.com/')[0]
+        #since its in a table can use the pandas read html to get the whole table
+        #rather than scrapping each row & data from the html
+            #func specifically searches for and returns a list of tables
+            # found in the HTML
+        #have to tell it which table in the page to grab with an index
     except BaseException:
         return None
 
@@ -131,6 +137,10 @@ if __name__ == "__main__":
     # If running as script, print scraped data
     print(scrape_all())
 
+
+
+
+## code without notes
 # # Import Splinter, BeautifulSoup, and Pandas
 # from splinter import Browser
 # from bs4 import BeautifulSoup as soup
