@@ -71,7 +71,6 @@ df
 
 df.to_html()
 
-
 # # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
 
 # ### Hemispheres

@@ -157,8 +157,6 @@ def hemi_img_url(browser):
         browser.back()
 
     return hemisphere_image_urls
-# browser.quit()
-
 #add the run code for the flask app
 if __name__ == "__main__":
 
