@@ -20,12 +20,15 @@ def scrape_all():
             #tells python that were using our mars_new function to pull this data
         #not sure why its news_paragraph not news_p
     #run all scraping functions and store results in a dictionary
+    hemisphere_image_urls = hemi_img_url(browser)
+    #tells python using the function to get the dictionary displayed in the data dict
     data = {
         "news_title": news_title,
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()   
+        "Hemispheres": hemisphere_image_urls,
+        "last_modified": dt.datetime.now(),
     }
 
     #stop webdriver and return data
@@ -58,7 +61,7 @@ def mars_news(browser):
         # news_title
 
         #get just the article summary(teaser) from the title
-        news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
+        news_paragraph = slide_elem.find('div', class_='article_teaser_body').get_text()
         # news_p
     #Handle HTML mismatch from updated websites, will throw an AttributeError so need to except that error
     except AttributeError:
@@ -67,7 +70,7 @@ def mars_news(browser):
     #have to have one so that python knows that the funct is done
     #comment out or delete the printing of the news_title and news_p 
     #and put in the return statement
-    return news_title, news_p
+    return news_title, news_paragraph
 
 # ### Featured Images
 
@@ -130,7 +133,7 @@ def mars_facts():
     return df.to_html()
 
 #make a function to get the hemisphere urls
-def hemi_img_url():
+def hemi_img_url(browser):
     url = 'https://marshemispheres.com/'
 
     browser.visit(url + 'index.html')
@@ -140,11 +143,16 @@ def hemi_img_url():
 # Write code to retrieve the image urls and titles for each hemisphere.
     links = browser.find_by_css("a.product-item img")
     for i in range(len(links)):
+        #Make an empty list to hold data
         hemisphere = {}
+        #Find elements to click the link
         browser.find_by_css("a.product-item img")[i].click()
+        #Find the sample image link
         sample_element = browser.links.find_by_text("Sample").first
         hemisphere["img_url"] = sample_element["href"]
+        #get the title
         hemisphere["title"] = browser.find_by_css("h2.title").text
+        #append the dict created
         hemisphere_image_urls.append(hemisphere)
         browser.back()
 

@@ -1,18 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 # Import Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
-
-
-# In[2]:
-
 
 # Set the executable path and initialize Splinter
 executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -20,9 +13,6 @@ browser = Browser('chrome', **executable_path, headless=False)
 
 
 # ### Visit the NASA Mars News Site
-
-# In[3]:
-
 
 # Visit the mars nasa news site
 url = 'https://redplanetscience.com/'
